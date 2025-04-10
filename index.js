@@ -61,7 +61,7 @@ server.post('/tarefas', checkTarefa, (req, res) => {
     const tarefas = readTarefas();
 
     const newTarefa = {
-        id: tarefas.length,
+        id: tarefas[tarefas.lenght-1]+1,
         name: name,
         description: description,
         executionTime: executionTime,
