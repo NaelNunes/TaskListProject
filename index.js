@@ -95,7 +95,7 @@ server.delete('/tarefas/:index', checkIndexTarefa, (req, res) => {
     tarefas.splice(index, 1);
     writeTarefas(tarefas);
 
-    return res.send();
+    return res.json(tarefas);
 });
 
 server.listen(3000, () => {
