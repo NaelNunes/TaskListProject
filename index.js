@@ -18,8 +18,10 @@ function checkIndexTarefa(req, res, next) {
 }
 
 function checkTarefa(req, res, next) {
-    if (!req.body.name) {
-        return res.status(400).json({ error: "O nome da tarefa é obrigatório!" });
+    const { name, description, executionTime } = req.body;
+        
+    if (!name || !description || !executionTime) {
+        return res.status(400).json({ error: "Está faltando um campo!" });
     }
 
     return next();
@@ -39,11 +41,13 @@ server.get('/tarefas/:index', checkIndexTarefa, (req, res) => {
 });
 
 server.post('/tarefas', checkTarefa, (req, res) => {
-    const { name } = req.body;
+    const { name, description, executionTime } = req.body;
 
     tarefas.push({
+        id: tarefas.length,
         name: name,
-        index: tarefas.length,
+        description: description,
+        executionTime: executionTime,
         status: 1
     });
 
@@ -52,7 +56,7 @@ server.post('/tarefas', checkTarefa, (req, res) => {
 
 server.put('/tarefas/:index', checkTarefa, checkIndexTarefa, (req, res) => {
     const { index } = req.params;
-    const { name } = req.body;
+    const { name, description, executionTime } = req.body;
 
     tarefas[index].name = name;
 
