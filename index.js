@@ -28,11 +28,12 @@ function checkTarefa(req,res,next)
 
 };
 
-function checkStatus(req,res,next)
-{
+server.use((req,res,next) => {
+    console.log(`URL CHAMADA: ${req.url}`);
 
+    return next();
+})
 
-};
 
 server.get('/tarefas', (req,res) => {
     return res.json(tarefas);
@@ -44,7 +45,7 @@ server.get('/tarefas/:index', checkIndexTarefa, (req,res) => {
     return res.json(tarefas[index]);
 });
 
-server.post('/tarefas/', checkTarefa, (req,res) => {
+server.post('/tarefas', checkTarefa, (req,res) => {
     
     const { name } = req.body; 
 
